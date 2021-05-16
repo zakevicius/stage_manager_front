@@ -1,3 +1,4 @@
+import axios from 'axios'
 import ActionButtons from './icons/action-buttons'
 import OccupationIcon from './icons/occupation-icon'
 
@@ -7,10 +8,10 @@ export type Stage = {
   status: string
   claimed_since: string
   last_deployment_made_by: string
-  history: {
-    date: string
+  logs: {
+    created_at: string
     action: string
-    whom: string
+    action_made_by: string
   }[]
 }
 
@@ -24,4 +25,27 @@ export const createData = (stage: Stage) => {
   }
 
   return data
+}
+
+type Data = {
+  id: number | null
+  action: string
+  claimed_by: string
+}
+
+export const request = async (method: String, data: Data) => {
+  let response
+  if (data) {
+    if (method === "GET") {
+      response = await axios.get(`${process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL}/stages/${data.id}`)
+    } else if (method === "PUT") {
+      response = await axios.put(`${process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL}/stages/${data.id}`, { stage: data })
+    }
+  } else {
+    if (method === "GET") {
+      response = await axios.get(`${process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL}/stages`)
+    }
+  }
+
+  return response?.data
 }

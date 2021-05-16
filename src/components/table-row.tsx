@@ -43,7 +43,7 @@ const StageTableRow = ({ row }: { row: StageRow }) => {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.id}
+          {`#${row.stage}`}
         </TableCell>
         <TableCell align="right">{row.status}</TableCell>
         <TableCell align="right">{row.claimed_since}</TableCell>
@@ -66,15 +66,15 @@ const StageTableRow = ({ row }: { row: StageRow }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                  {row.logs.map((logRow) => (
+                    <TableRow key={logRow.created_at}>
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {logRow.created_at}
                       </TableCell>
-                      <TableCell>{historyRow.action}</TableCell>
-                      <TableCell align="right">{historyRow.whom}</TableCell>
+                      <TableCell>{logRow.action}</TableCell>
+                      <TableCell align="right">{logRow.action_made_by}</TableCell>
                     </TableRow>
-                  ))} */}
+                  ))}
                 </TableBody>
               </Table>
             </Box>

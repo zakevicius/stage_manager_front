@@ -1,18 +1,26 @@
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { useSnackbar } from 'notistack'
 
+import { request } from '../utils'
+
 import TooltipWrapper from '../tooltip-wrapper'
 
 interface Props {
-  id: string | number
+  id: number | null
 }
 
 const ClaimAction = ({ id }: Props) => {
   const { enqueueSnackbar } = useSnackbar()
 
-  const handleClick = () => {
-    // post to claim stage
-    enqueueSnackbar(`Claimed #${id}`, { variant: 'success' })
+  const handleClick = async () => {
+    try {
+      await request("PUT", { id, action: 'claim', claimed_by: 'me' })
+      enqueueSnackbar(`Claimed #${id}`, { variant: 'success' })
+    } catch (err) {
+      console.log(err)
+      enqueueSnackbar(err.message, { variant: 'error' })
+    }
+    
   }
 
   return (

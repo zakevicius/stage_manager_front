@@ -56,13 +56,13 @@ const Index = ({ stages }: Props) => {
 }
 
 export const getServerSideProps = async () => {
-  const axios = require('axios');
+  const { request } = require('../components/utils')
 
-  const response = await axios.get(`${process.env.STAGE_MANAGER_API_URL}/stages`);
+  const stages = await request("GET")
 
   return {
     props: {
-      stages: response.data
+      stages: stages
     }
   }
 }
