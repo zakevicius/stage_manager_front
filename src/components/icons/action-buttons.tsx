@@ -1,8 +1,7 @@
 import { makeStyles } from '@material-ui/core'
 import { Stage } from '../utils'
-import ClaimAction from './claim'
 
-import UnclaimAction from './unclaim'
+import Action from './action'
 
 const useStyles = makeStyles({
   wrapper: {
@@ -26,9 +25,9 @@ const ActionButtons = ({ stage }: Props) => {
   return (
     <div className={classes.wrapper}>
       {stage.status == 'unclaimed' ? (
-        <ClaimAction id={stage.id} />
+        <Action id={stage.id} action={'claim'}/>
       ) : (
-        <UnclaimAction id={stage.id} />
+        <Action id={stage.id} action={'unclaim'}/>
       )}
     </div>
   )
