@@ -2,7 +2,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import { useSnackbar } from 'notistack'
 
-import { request } from '../utils'
+import { request, throttle } from '../utils'
 
 import TooltipWrapper from '../tooltip-wrapper'
 
@@ -31,7 +31,7 @@ const Action = ({ id, action }: Props) => {
   }
 
   return (
-    <TooltipWrapper handleClick={handleClick} label={action}>
+    <TooltipWrapper handleClick={throttle(handleClick, 1000)} label={action}>
       {icons[action]}
     </TooltipWrapper>
   )

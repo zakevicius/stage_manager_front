@@ -49,3 +49,15 @@ export const request = async (method: String, data: Data) => {
 
   return response?.data
 }
+
+export const throttle = (callback: (...args: string[]) => any, delay: number) => {
+  let inThrottle = false;
+
+  return (...args: string[]) => {
+    if (!inThrottle) {
+      callback(...args)
+      inThrottle = true
+      setTimeout(() => inThrottle = false, delay)
+    }
+  }
+}
