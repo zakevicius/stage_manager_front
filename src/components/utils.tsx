@@ -4,7 +4,7 @@ import OccupationIcon from './icons/occupation-icon'
 
 export type Stage = {
   id: number
-  stage: number
+  stage_id: number
   status: string
   claimed_since: string
   last_deployment_made_by: string
@@ -28,9 +28,9 @@ export const createData = (stage: Stage) => {
 }
 
 type Data = {
-  id: number | null
+  id: string | number
   action: string
-  claimed_by: string
+  claimed_by?: string
 }
 
 export const request = async (method: String, data: Data) => {

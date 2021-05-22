@@ -6,7 +6,7 @@ import { request } from '../utils'
 import TooltipWrapper from '../tooltip-wrapper'
 
 interface Props {
-  id: number | null
+  id: string | number
 }
 
 const ClaimAction = ({ id }: Props) => {
@@ -17,7 +17,6 @@ const ClaimAction = ({ id }: Props) => {
       await request("PUT", { id, action: 'claim', claimed_by: 'me' })
       enqueueSnackbar(`Claimed #${id}`, { variant: 'success' })
     } catch (err) {
-      console.log(err)
       enqueueSnackbar(err.message, { variant: 'error' })
     }
     

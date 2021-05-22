@@ -43,7 +43,7 @@ const StageTableRow = ({ row }: { row: StageRow }) => {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {`#${row.stage}`}
+          {`#${row.stage_id}`}
         </TableCell>
         <TableCell align="right">{row.status}</TableCell>
         <TableCell align="right">{row.claimed_since}</TableCell>
