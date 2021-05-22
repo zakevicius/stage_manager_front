@@ -17,7 +17,8 @@ const UnclaimAction = ({ id }: Props) => {
       await request("PUT", { id, action: 'unclaim' })
       enqueueSnackbar(`Unclaimed #${id}`, { variant: 'success' })
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' })
+      let message = err.response.data?.error || err.message
+      enqueueSnackbar(message, { variant: 'error' })
     }
   }
 

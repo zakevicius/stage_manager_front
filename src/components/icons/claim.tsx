@@ -17,7 +17,8 @@ const ClaimAction = ({ id }: Props) => {
       await request("PUT", { id, action: 'claim', claimed_by: 'me' })
       enqueueSnackbar(`Claimed #${id}`, { variant: 'success' })
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' })
+      let message = err.response.data?.error || err.message
+      enqueueSnackbar(message, { variant: 'error' })
     }
     
   }
