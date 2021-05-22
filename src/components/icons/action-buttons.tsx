@@ -24,11 +24,7 @@ const ActionButtons = ({ stage }: Props) => {
 
   return (
     <div className={classes.wrapper}>
-      {stage.status == 'unclaimed' ? (
-        <Action id={stage.id} action={'claim'}/>
-      ) : (
-        <Action id={stage.id} action={'unclaim'}/>
-      )}
+      <Action id={stage.id} action={stage.status == 'unclaimed' ? 'claim' : 'unclaim'}/>
     </div>
   )
 }
