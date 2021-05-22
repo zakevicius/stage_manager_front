@@ -69,7 +69,7 @@ const StageTableRow = ({ row }: { row: StageRow }) => {
                   {row.logs.map((logRow) => (
                     <TableRow key={logRow.created_at}>
                       <TableCell component="th" scope="row">
-                        {logRow.created_at}
+                        {new Date(logRow.created_at).toLocaleString()}
                       </TableCell>
                       <TableCell>{logRow.action}</TableCell>
                       <TableCell align="right">{logRow.action_made_by}</TableCell>
