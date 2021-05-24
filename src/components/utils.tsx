@@ -36,7 +36,7 @@ type Data = {
 export const request = async (method: String, data: Data) => {
   let response
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL
-  axios.defaults.headers.common['Authorization'] = `Tokenas ${process.env.API_TOKEN}` 
+  axios.defaults.headers.Authorization = `Token ${process.env.API_TOKEN}` 
 
   try {
     if (data) {

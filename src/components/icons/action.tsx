@@ -22,7 +22,7 @@ const Action = ({ id, action }: Props) => {
 
   const handleClick = async () => {
     try {
-      await request("PUT", { id, action })
+      await request("PUT", { id, action, claimed_by: 'From browser' })
       enqueueSnackbar(`${action}ed #${id}`, { variant: 'success' })
       router.replace(router.asPath)
     } catch (err) {
