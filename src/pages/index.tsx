@@ -1,6 +1,7 @@
 import { Link, makeStyles, Box, Container, Typography } from '@material-ui/core'
 
 import StagesTable from '../components/stages-table'
+import ErrorPage from './error'
 
 import { Stage } from '../components/utils'
 
@@ -28,11 +29,15 @@ const useStyles = makeStyles({
 
 interface Props {
   stages: Stage[]
+  error?: string
 }
 
-const Index = ({ stages }: Props) => {
+const Index = ({ stages, error }: Props) => {
   const classes = useStyles()
-  return (
+
+  return error ? 
+  <ErrorPage error={error} /> : 
+  (
     <Container maxWidth="md">
       <Box my={4}>
         <div className={classes.logoBox}>
@@ -58,11 +63,20 @@ const Index = ({ stages }: Props) => {
 export const getServerSideProps = async () => {
   const { request } = require('../components/utils')
 
-  const stages = await request("GET")
+  const data = await request("GET")
+
+  if (data.error) {
+    return { 
+      props: { 
+        error: data.error,
+        stages: []
+      }
+    }
+  }
 
   return {
     props: {
-      stages: stages
+      stages: data
     }
   }
 }
