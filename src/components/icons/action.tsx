@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { LockOutlined, LockOpen } from '@material-ui/icons'
 import { useSnackbar } from 'notistack'
 
@@ -15,17 +16,15 @@ interface Props {
   action: keyof typeof icons
 }
 
-// If claiming would happer during deploy with 'cap deploy', 
-// wouldn't it be good to write additional 'cap unclaim' so we could track user
-// and avoid 'accidental anonymous' unclaiming
 const Action = ({ id, action }: Props) => {
   const { enqueueSnackbar } = useSnackbar()
+  const router = useRouter()
 
   const handleClick = async () => {
     try {
       await request("PUT", { id, action })
       enqueueSnackbar(`${action}ed #${id}`, { variant: 'success' })
-      window.location.reload()
+      router.replace(router.asPath)
     } catch (err) {
       let message = err.response?.data?.error || err.message
       enqueueSnackbar(message, { variant: 'error' })

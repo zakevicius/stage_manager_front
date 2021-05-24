@@ -22,10 +22,14 @@ const StagesTable = memo(({ stages }: Props) => {
   const [rows, setRows] = useState<StageRow[]>([])
 
   useEffect(() => {
+    const stageRowsTemp: StageRow[] = []
+
     stages.forEach((stage) => {
-      setRows((prevRows) => [...prevRows, createData(stage)])
+      stageRowsTemp.push(createData(stage))
     })
-  }, [])
+
+    setRows(stageRowsTemp)
+  }, [stages])
 
   return (
     <TableContainer component={Paper}>
