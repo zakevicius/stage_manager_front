@@ -35,16 +35,23 @@ type Data = {
 
 export const request = async (method: String, data: Data) => {
   let response
-  if (data) {
-    if (method === "GET") {
-      response = await axios.get(`${process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL}/stages/${data.id}`)
-    } else if (method === "PUT") {
-      response = await axios.put(`${process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL}/stages/${data.id}`, { stage: data })
+  axios.defaults.baseURL = process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL
+  axios.defaults.headers.common['Authorization'] = `Tokenas ${process.env.API_TOKEN}` 
+
+  try {
+    if (data) {
+      if (method === "GET") {
+        response = await axios.get(`/stages/${data.id}`)
+      } else if (method === "PUT") {
+        response = await axios.put(`/stages/${data.id}`, { stage: data })
+      }
+    } else {
+      if (method === "GET") {
+        response = await axios.get('/stages')
+      }
     }
-  } else {
-    if (method === "GET") {
-      response = await axios.get(`${process.env.NEXT_PUBLIC_STAGE_MANAGER_API_URL}/stages`)
-    }
+  } catch (e) {
+    return { error: e.response.data }
   }
 
   return response?.data
